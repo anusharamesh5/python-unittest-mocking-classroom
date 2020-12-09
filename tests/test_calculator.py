@@ -16,7 +16,7 @@ class TestCalculator(TestCase):
         calculator = MockCalculator()  # create a mock object of Calculator class. This will help to customize output of class methods
 
         '''
-        mock the sum() method of Calculator class to return value '1'. Noth that since we have mocked/stubbed the
+        mock the sum() method of Calculator class to return value '1'. Note that since we have mocked/stubbed the
         sum method, it will not execute the actual logic whenever called and just return 1 irrespective of input.
         '''
         calculator.sum.return_value = 1  
