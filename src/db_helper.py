@@ -2,9 +2,8 @@ import sqlite3
 from sqlite3 import Error
 
 
-
-
 class DbHelper:
+
     def sqlite_connection(self):
         try:
             con = sqlite3.connect("employeedatabase.db")
@@ -13,11 +12,11 @@ class DbHelper:
             print(Error)
 
     def sqlite_table(self, con):
-        cursorObj = con.cursor()
-        cursorObj.execute("PRAGMA foreign_keys=ON")
-        cursorObj.execute("DROP TABLE Employees")
-        cursorObj.execute(
-            "CREATE TABLE Employees(emp_no INT, emp_name VARCHAR(20), salary FLOAT)")
+        cursor_obj = con.cursor()
+        cursor_obj.execute("PRAGMA foreign_keys=ON")
+        cursor_obj.execute("DROP TABLE Employees")
+        cursor_obj.execute("CREATE TABLE Employees(emp_no INT, emp_name"
+                           " VARCHAR(20), salary FLOAT)")
         sql = "INSERT INTO Employees(emp_no, emp_name, salary) VALUES (?,?,?)"
         values = [(1, 'Naresh', 20000),
                   (2, 'Suresh', 40000),
@@ -29,29 +28,31 @@ class DbHelper:
                   (8, 'Arnab', 70000),
                   (9, 'Vijaya', 80000),
                   (10, 'Harini', 100000)]
-        cursorObj.executemany(sql, values)
+        cursor_obj.executemany(sql, values)
         con.commit()
-        #print(cursorObj.rowcount, "was inserted.")
+        # print(cursorObj.rowcount, "was inserted.")
 
     def get_maximum_salary(self, con):
-        '''
-        Implement the logic to find and return maximum salary from employee table
-        '''
+        """
+        Implement the logic to find and return
+        maximum salary from employee table
+        """
         cursorObj = con.cursor()
         cursorObj.execute("PRAGMA foreign_keys=ON")
         cursorObj.execute("SELECT MAX(salary) from Employees")
-        max_salary = float(cursorObj.fetchone()[0])
-        return max_salary
+        max_sal = float(cursorObj.fetchone()[0])
+        return max_sal
 
     def get_minimum_salary(self, con):
-        '''
-        Implement the logic to find and return minimum salary from employee table
-        '''
+        """
+        Implement the logic to find and return
+        minimum salary from employee table
+        """
         cursorObj = con.cursor()
         cursorObj.execute("PRAGMA foreign_keys=ON")
         cursorObj.execute("SELECT MIN(salary) from Employees")
-        min_salary = float(cursorObj.fetchone()[0])
-        return min_salary
+        min_sal = float(cursorObj.fetchone()[0])
+        return min_sal
 
 
 if __name__ == "__main__":
